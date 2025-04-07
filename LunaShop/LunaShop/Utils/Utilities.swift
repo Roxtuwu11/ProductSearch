@@ -13,7 +13,4 @@ import SwiftUICore
 extension Color {
     static let lunaPinkColor = Color("lunaPink")
     
-  
- 
-
 }
