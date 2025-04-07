@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		858E3CA82DA34BFE007CDEE5 /* LunaShop */ = {
+		855B32E72DA38E1C00D5D6B1 /* LunaShop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = LunaShop;
 			sourceTree = "<group>";
@@ -75,7 +75,7 @@
 		858E3C9D2DA34BFE007CDEE5 = {
 			isa = PBXGroup;
 			children = (
-				858E3CA82DA34BFE007CDEE5 /* LunaShop */,
+				855B32E72DA38E1C00D5D6B1 /* LunaShop */,
 				858E3CB92DA34BFF007CDEE5 /* LunaShopTests */,
 				858E3CC32DA34BFF007CDEE5 /* LunaShopUITests */,
 				858E3CA72DA34BFE007CDEE5 /* Products */,
@@ -108,7 +108,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				858E3CA82DA34BFE007CDEE5 /* LunaShop */,
+				855B32E72DA38E1C00D5D6B1 /* LunaShop */,
 			);
 			name = LunaShop;
 			packageProductDependencies = (
