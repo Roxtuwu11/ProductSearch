@@ -16,11 +16,19 @@ import SwiftUI
 struct HomeScreen: View {
     var body: some View {
         VStack() {
-     
-            Header()
-            
+            ZStack {
+                
+                    Header()
+                    
+                SearchBarView().padding(.top, 160)
+                    .shadow(color: Color.black.opacity(0.1) ,radius: 8, x:0, y: 4)
+
+            }
+          
+          
             Spacer()
-        }
+    
+        }.ignoresSafeArea()
       
     }
 }
