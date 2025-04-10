@@ -8,46 +8,26 @@
 import SwiftUI
 
 struct ProductCardView: View {
-    var title: String
-    var description: String
-    var price: String
-    var imageName: String
+    var product: Product
+    
     var body: some View {
-        HStack {
-            Image(systemName: imageName)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .padding()
-                .background(Color.white)
-                .clipShape(Circle())
+        VStack{
+            Image(product.imageName).resizable()
+                .frame(width: (Constants.width/3 - 10), height: Constants.height/5 )
+                .cornerRadius(20)
+            Text(product.name)
+                .font(.title3)
+                .fontWeight(.bold)
+                .scaledToFit()
+            Text(product.price)
+                .font(.title3)
+                .fontWeight(.bold)
             
-            VStack(alignment: .leading) {
-                Text("$\(price)")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                Text(title)
-                    .fontWeight(.semibold)
-                Text(description)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-
-            Spacer()
-
-            Button(action: {}) {
-                Image(systemName: "plus")
-                    .padding()
-                    .background(Color.softPink)
-                    .foregroundColor(.white)
-                    .clipShape(Circle())
-            }
         }
+        .frame(width: Constants.width/3.5)
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(30)
+        .background(Color.maverick)
+        .cornerRadius(20)
     }
 }
 
-#Preview {
-    ProductCardView(title: "avellana", description: "salmn", price: "100", imageName: "")
-}

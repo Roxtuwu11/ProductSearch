@@ -12,6 +12,11 @@ import UIKit
 
 struct Constants {
     static let width = UIScreen.main.bounds.width
+    static let height = UIScreen.main.bounds.height
+    static let products: [Product] = [
+        Product(name: "Alfombra", description: "Alfombra de leche de cereza", price: "800", imageName: "AlfombraProducto"),  Product(name: "Espejo", description: "Espejo rosa", price: "1200", imageName: "EspejoProducto" ),   Product(name: "Funda rosita fresita", description: "Funda para iphone", price: "1500", imageName: "FundaCelularProducto" ),   Product(name: "Silla", description: "Silla rosa", price: "100,000", imageName: "sillaProducto" )
+    ]
+  
 }
 extension Color {
     static let lunaPinkColor = Color("lunaPink")
