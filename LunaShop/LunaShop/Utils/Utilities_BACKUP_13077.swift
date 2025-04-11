@@ -20,6 +20,9 @@ struct Constants {
 }
 extension Color {
     static let lunaPinkColor = Color("lunaPink")
+<<<<<<< HEAD
+    
+=======
 }
 
 struct RoundedCorner: Shape {
@@ -34,4 +37,5 @@ struct RoundedCorner: Shape {
         )
         return Path(path.cgPath)
     }
+>>>>>>> feature/HomeScreen
 }
