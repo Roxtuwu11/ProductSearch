@@ -11,23 +11,29 @@ struct FavoriteProductCardView: View {
     var product: Product
     
     var body: some View {
-        VStack{
-            Image(product.imageName).resizable()
-                .frame(width: (Constants.width/3 - 10), height: Constants.height/5 )
-                .cornerRadius(20)
-            Text(product.name)
-                .font(.title3)
-                .fontWeight(.bold)
+        VStack {
+            Image(product.imageName)
+                .resizable()
                 .scaledToFit()
-            Text(product.price)
-                .font(.title3)
-                .fontWeight(.bold)
-            
+                .frame(height: 100)
+                .cornerRadius(12)
+
+            VStack(spacing: 2) {
+                Text(product.name)
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+
+                Text("$\(product.price)")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
         }
-        .frame(width: Constants.width/3.5)
         .padding()
-        .background(Color.maverick)
+        .background(Color.white)
         .cornerRadius(20)
+        .shadow(color: .gray.opacity(0.2), radius: 6, x: 0, y: 2)
+
     }
 }
 
