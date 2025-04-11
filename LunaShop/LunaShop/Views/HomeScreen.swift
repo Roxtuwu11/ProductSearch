@@ -28,24 +28,28 @@ struct HomeScreen: View {
                     .edgesIgnoringSafeArea(.all)
    
                 VStack(alignment: .leading) {
-                    Text("Los favortitos")
-                        .font(.title2)
-                        .bold()
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack {
-                            ForEach(products!){ product in
-                                ProductCardView(product: product)
-                            }
-                        }
-                        .padding(.trailing)
+                    ScrollView {
+                   
+                       
+                   
+                        FavoriteSectionView(products: products!)
+                     
+                     
+                        ProductSectionView(products: products!)
+                           
+                        
+                          
+                        
+                      
                     }
-                    .padding(.horizontal)
                 }
+               
 
             }
 
     
         }.ignoresSafeArea()
+           
           
             
             
