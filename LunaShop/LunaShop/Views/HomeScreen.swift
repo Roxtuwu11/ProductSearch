@@ -30,11 +30,10 @@ struct HomeScreen: View {
                 VStack(alignment: .leading) {
                     ScrollView {
                    
-                       
-                   
+                        TittleSection(tittle: "Tus favoritos")
                         FavoriteSectionView(products: products!)
                      
-                     
+                        TittleSection(tittle: "Te podria gustar")
                         ProductSectionView(products: products!)
                            
                         
