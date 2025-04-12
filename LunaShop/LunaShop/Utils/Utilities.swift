@@ -22,6 +22,9 @@ extension Color {
     static let lunaPinkColor = Color("lunaPink")
 }
 
+struct URLConstants {
+    static let urlProductFinder = "https://api.mercadolibre.com/products/search?"
+}
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
@@ -35,3 +38,4 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+
