@@ -18,20 +18,26 @@ struct APIRequest {
     var body: Encodable? = nil
 }
 
-
-struct Welcome {
+struct RequestProduct: Codable {
+    let site_id: String
+    let status: String
+    let product_identifier: String?
+    let q: String?
+    let limit: String?
+}
+struct ResponseProduct: Codable {
     let keywords: String
     let paging: Paging
     let results: [Result]
 }
 
 
-struct Paging {
+struct Paging: Codable {
     let total, limit, offset: Int
 }
 
 
-struct Result {
+struct Result: Codable {
     let id, status, domainID: String
     let settings: Settings
     let name: String
@@ -43,20 +49,20 @@ struct Result {
 }
 
 
-struct MainFeature {
+struct MainFeature: Codable {
     let text, type: String
 }
-struct Attribute {
+struct Attribute: Codable {
     let id, name, valueID, valueName: String
 }
 
 
-struct Picture {
+struct Picture: Codable{
     let id: String
     let url: String
 }
 
 
-struct Settings {
+struct Settings: Codable {
     let listingStrategy: String
 }
