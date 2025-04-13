@@ -11,10 +11,10 @@ struct ProductService {
     func fetchProducts(request: RequestProduct? ,onSuccess success:@escaping((_ result: ResponseProduct?)-> Void),
             onFailure failure:@escaping((_ error:Error?)->Void)){
         guard let req = request else { return }
-        let url = URL(string: URLConstants.urlProductFinder )
+        let url = URL(string: URLConstants.urlProductFinder)
         APIClient
             .shared
-            .getRequest(url: url!, request: request, responseType: ResponseProduct.self, onSuccess:  { (result) in
+            .getRequest(url: url!, request: req, responseType: ResponseProduct.self, onSuccess:  { (result) in
               success(result)
             }, onFailure: {(error) in
                 failure(error)

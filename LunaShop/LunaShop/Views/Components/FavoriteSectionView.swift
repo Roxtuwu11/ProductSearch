@@ -14,6 +14,7 @@ struct FavoriteSectionView: View {
             HStack {
                 ForEach(products){ product in
                     FavoriteProductCardView(product: product)
+                        .frame(width: Constants.width/2, height: Constants.height/4)
                 }
             }
             .padding(.trailing)

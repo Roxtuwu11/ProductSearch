@@ -80,29 +80,29 @@ class APIClient {
                                       attributes: [.concurrent])
         queue.async {
             
-        
-                var urlToSend = url.absoluteString
-                var requestUrl = ""
+            
+            var urlToSend = url.absoluteString
+            var requestUrl = ""
+            
+            if let req = request
+            {
+                let params = req.dictionary
+                //    fecha=01/01/2023&pais=MEXICO
                 
-                if let req = request
-                {
-                    let params = req.dictionary
-                    //    fecha=01/01/2023&pais=MEXICO
-                  
-                    params!.forEach{ info in
-                        requestUrl = requestUrl + "\(info.key)" + "=" + "\(info.value)&"
-                        
-                    }
-                    requestUrl.removeLast()
-                   
+                params!.forEach{ info in
+                    requestUrl = requestUrl + "\(info.key)" + "=" + "\(info.value)&"
+                    
                 }
-                urlToSend = urlToSend + requestUrl
-                var urlRequest = URLRequest(url: URL(string: urlToSend)!)
-                urlRequest.httpMethod = HTTPMethod.get.rawValue
-                urlRequest.setValue("APP_USR-3980890892821190-041222-e4e5b99f799ed86cde22c9e755a9a4a4-290788001", forHTTPHeaderField: "Authorization")
-   
+                requestUrl.removeLast()
                 
-                //    fecha=01%2F01%2F2023&pais=MEXICO
+            }
+            urlToSend = urlToSend + requestUrl
+            var urlRequest = URLRequest(url: URL(string: urlToSend)!)
+            urlRequest.httpMethod = HTTPMethod.get.rawValue
+            urlRequest.setValue("APP_USR-3980890892821190-041316-6a135b7bcd33f714823d5ef6c37ac6b5-290788001", forHTTPHeaderField: "Authorization")
+            
+            
+        
                 self.sessionManager.request(urlRequest).response { (Response) in
                     if let res = Response.response {
                         print("respuesta: \(res) ")
