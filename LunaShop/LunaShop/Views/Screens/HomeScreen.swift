@@ -9,12 +9,13 @@ import SwiftUI
 
 
 #Preview {
-    HomeScreen(products: Constants.products)
+    HomeScreen(productStore: ProductStore())
 }
 
 
 struct HomeScreen: View {
-     var products: [Product]?
+    @State  var productStore = ProductStore()
+
     var body: some View {
         VStack() {
             ZStack {
@@ -31,10 +32,10 @@ struct HomeScreen: View {
                     ScrollView {
                    
                         TittleSection(tittle: "Tus favoritos")
-                        FavoriteSectionView(products: products!)
+                        FavoriteSectionView(products: productStore.products)
                      
                         TittleSection(tittle: "Te podria gustar")
-                        ProductSectionView(products: products!)
+                        ProductSectionView(products: productStore.products)
                            
                         
                           
@@ -48,6 +49,11 @@ struct HomeScreen: View {
 
     
         }.ignoresSafeArea()
+            .onAppear {
+         
+                   self.productStore.loadProducts(for: "cama")
+                    
+            }
            
           
             

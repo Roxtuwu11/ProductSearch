@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoriteSectionView: View {
-    var products: [Product]
+    var products: [Result]
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack {

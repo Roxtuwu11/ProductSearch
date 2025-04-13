@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct FavoriteProductCardView: View {
-    var product: Product
+    var product: Result
     
     var body: some View {
         VStack {
-            Image(product.imageName)
+            Image("sillaProducto")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 100)
                 .cornerRadius(12)
 
             VStack(spacing: 2) {
-                Text(product.name)
+                Text(product.name ?? "")
                     .font(.headline)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.primary)
 
-                Text("$\(product.price)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+              
             }
         }
         .padding()

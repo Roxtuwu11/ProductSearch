@@ -7,15 +7,19 @@
 
 import Foundation
 struct ProductService {
-    func fetchProducts(request: RequestProduct) async throws -> [ResponseProduct] {
-        let request = APIRequest(
-            path: "/search?",
-            method: .GET,
-            queryItems: try request.toQueryItems()
-        )
-
-        return try await APIClient.shared.send(request)
-    }
+ 
+    func fetchProducts(request: RequestProduct? ,onSuccess success:@escaping((_ result: ResponseProduct?)-> Void),
+            onFailure failure:@escaping((_ error:Error?)->Void)){
+        guard let req = request else { return }
+        let url = URL(string: URLConstants.urlProductFinder )
+        APIClient
+            .shared
+            .getRequest(url: url!, request: request, responseType: ResponseProduct.self, onSuccess:  { (result) in
+              success(result)
+            }, onFailure: {(error) in
+                failure(error)
+              })
+      }
 }
 extension Encodable {
     func toQueryItems() throws -> [URLQueryItem] {

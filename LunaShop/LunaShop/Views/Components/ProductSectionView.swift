@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductSectionView: View {
-    var products: [Product]
+    var products: [Result]
     var body: some View {
         ForEach(products){ product in
             ProductCardView(product: product)

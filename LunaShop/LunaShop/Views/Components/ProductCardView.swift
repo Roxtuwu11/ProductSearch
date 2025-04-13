@@ -8,27 +8,22 @@
 import SwiftUI
 
 struct ProductCardView: View {
-    var product: Product
+    var product: Result
     var body: some View {
         HStack(spacing: 16) {
-            Image(product.imageName)
+            Image("")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 80, height: 80)
                 .cornerRadius(10)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(product.name)
+                Text(product.name ?? "")
                     .font(.headline)
                     .bold()
 
-                Text("$\(product.price)")
-                    .font(.subheadline)
+            
 
-                Text(product.description)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .lineLimit(2)
             }
 
             Spacer()
