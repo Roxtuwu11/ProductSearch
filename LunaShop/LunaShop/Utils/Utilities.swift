@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 import UIKit
-
+import Shimmer
 
 struct Constants {
     static let width = UIScreen.main.bounds.width
@@ -39,3 +39,22 @@ struct RoundedCorner: Shape {
     }
 }
 
+struct shimmerViewModifier: ViewModifier {
+    let isLoading: Bool
+    func body(content: Content) -> some View {
+        content
+            .redacted(
+                reason: isLoading ? .placeholder : []
+            )
+            .shimmering(
+                active: isLoading,
+                bandSize: 2
+               )
+    }
+}
+extension View {
+    func elementWithShimmer(isLoading: Bool) -> some View
+    {
+        self.modifier(shimmerViewModifier(isLoading: isLoading))
+    }
+}

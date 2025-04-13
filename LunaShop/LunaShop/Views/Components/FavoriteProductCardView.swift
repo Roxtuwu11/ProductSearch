@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
-
+import Shimmer
 struct FavoriteProductCardView: View {
     var product: Result
-    
+     var isLoading = true
     var body: some View {
         VStack {
          
@@ -25,6 +25,13 @@ struct FavoriteProductCardView: View {
                             ProgressView()
                         }
                     }
+            .redacted(
+                reason: isLoading ? .placeholder : []
+            )
+            .shimmering(
+                active: isLoading,
+                bandSize: 2
+               )
             .frame(height: Constants.height/5)
                    
                     .cornerRadius(12)
@@ -33,13 +40,19 @@ struct FavoriteProductCardView: View {
 
             VStack(spacing: 2) {
                 Text(product.name ?? "")
+                 
                     .font(.headline)
                     .foregroundColor(.primary)
                     .lineLimit(3)
-
+               
+                   
               
             }
+          
         }
+       
+       
+
         .padding()
         .background(Color.white)
         .cornerRadius(20)

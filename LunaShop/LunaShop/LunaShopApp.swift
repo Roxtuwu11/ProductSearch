@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct LunaShopApp: App {
+    @State  var productStore = ProductStore()
     var body: some Scene {
         WindowGroup {
             HomeScreen()
+                .environment(productStore)
         }
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		857DEB252DAB8C920072D610 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 857DEB242DAB8C920072D610 /* Alamofire */; };
+		8595C4652DAC617700B0F98F /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8595C4642DAC617700B0F98F /* Shimmer */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8595C4652DAC617700B0F98F /* Shimmer in Frameworks */,
 				857DEB252DAB8C920072D610 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +133,7 @@
 			name = LunaShop;
 			packageProductDependencies = (
 				857DEB242DAB8C920072D610 /* Alamofire */,
+				8595C4642DAC617700B0F98F /* Shimmer */,
 			);
 			productName = LunaShop;
 			productReference = 858E3CA62DA34BFE007CDEE5 /* LunaShop.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				857DEB232DAB8C920072D610 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 858E3CA72DA34BFE007CDEE5 /* Products */;
@@ -592,6 +596,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -599,6 +611,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 857DEB232DAB8C920072D610 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		8595C4642DAC617700B0F98F /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
