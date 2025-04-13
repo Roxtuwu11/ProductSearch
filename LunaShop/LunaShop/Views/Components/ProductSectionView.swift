@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ProductSectionView: View {
-    var products: [Result]
+    
+    @Environment(ProductStore.self)  var productStore
     var body: some View {
-        ForEach(products){ product in
+        VStack {
+        ForEach(productStore.likeProducts){ product in
             ProductCardView(product: product)
             
             .frame(maxWidth: .infinity)
 
                
-        }    }
+        }
+        }
+        .onAppear
+        {
+            self.productStore.loadLikeProducts()
+        }
+    }
+        
 }
 

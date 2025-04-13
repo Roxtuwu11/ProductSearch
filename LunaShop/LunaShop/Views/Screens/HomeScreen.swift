@@ -36,7 +36,7 @@ struct HomeScreen: View {
                         FavoriteSectionView()
                      
                         TittleSection(tittle: "Te podria gustar")
-                        ProductSectionView(products: productStore.products)
+                        ProductSectionView()
                            
                         
                           

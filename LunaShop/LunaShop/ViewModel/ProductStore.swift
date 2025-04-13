@@ -12,6 +12,7 @@ class ProductStore {
     var isLoading = true
     var products: [Result] = []
     var favoriteProducts: [Result] = []
+    var likeProducts: [Result] = []
     var errorMessage: String?
     private let service = ProductService()
     
@@ -43,6 +44,25 @@ class ProductStore {
         service.fetchProducts(request: request, onSuccess: { result in
             guard let product = result else { return  }
             self.favoriteProducts = product.results
+            self.isLoading = false
+            }, onFailure: { error in
+                print("Hubo un error en la peticion")
+                self.isLoading = false
+            })
+        
+        
+      
+    }
+    
+    func loadLikeProducts()  {
+        isLoading = true
+        let request =  RequestProduct(site_id: "MLA", status: "active", product_identifier: "", q: "Labial", limit: 10)
+       
+     
+     
+        service.fetchProducts(request: request, onSuccess: { result in
+            guard let product = result else { return  }
+            self.likeProducts = product.results
             self.isLoading = false
             }, onFailure: { error in
                 print("Hubo un error en la peticion")
