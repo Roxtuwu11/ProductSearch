@@ -38,15 +38,7 @@ struct HomeScreen: View {
                  
                         if productStore.isSearching {
                         
-                               List(productStore.suggestions, id: \.self) { suggestion in
-                                   Button {
-                                   
-                                   } label: {
-                                       Text(suggestion)
-                                   }
-                               }
-                               .listStyle(PlainListStyle())
-                               .frame(height: 200)
+                            SuggestionView(suggestions: productStore.suggestions)
                             
                            }else {
                                TittleSection(tittle: "Tus favoritos")
@@ -63,8 +55,10 @@ struct HomeScreen: View {
                 .onChange(of: self.productToSearch) {
                     if productToSearch == "" {
                         self.productStore.isSearching = false
+                    } else {
+                        productStore.showSuggestion(for: productToSearch)
                     }
-                    productStore.showSuggestion(for: productToSearch)
+                    
                 }
 
             }

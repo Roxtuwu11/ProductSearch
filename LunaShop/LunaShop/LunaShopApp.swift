@@ -10,10 +10,24 @@ import SwiftUI
 @main
 struct LunaShopApp: App {
     @State  var productStore = ProductStore()
+    @State  var router = Router()
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
+            NavigationStack(path: $router.routes) {
+                HomeScreen()
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .detail(let detail):
+                            DetailScreen()
+                  
+                            
+                        case .resultSearch(product: let product):
+                            ResultSearchScreen(search: product)
+                        }
+                    }
+            }
                 .environment(productStore)
+                .environment(router)
         }
     }
 }

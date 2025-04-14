@@ -18,7 +18,7 @@ class ProductStore {
     var textToSearch: String = ""
     var isSearching = false
     var suggestions: [String] = ["Cama para perro", "Zelda breath of the wild", "Bolsa de mano", "Pelota de futbol"]
-  
+   var id_product = ""
     private let service = ProductService()
     
 
@@ -104,5 +104,7 @@ class ProductStore {
         
       
     }
+    
+    
     
 }
