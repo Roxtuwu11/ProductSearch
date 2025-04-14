@@ -22,6 +22,7 @@ extension Color {
 
 struct URLConstants {
     static let urlProductFinder = "https://api.mercadolibre.com/products/search?"
+    static let urlDetailProduct =  "https://api.mercadolibre.com/products/"
 }
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity

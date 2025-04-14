@@ -73,7 +73,7 @@ struct Settings: Codable {
 struct Detail: Codable {
     let id, status, name, family_name: String?
     let pickers: [Picker]?
-    let pictures: [PictureDetail]
+    let pictures: [PictureDetail]?
 }
 
 struct Picker: Codable {

@@ -57,7 +57,7 @@ struct DetailScreen: View {
            .background(Color(.systemGroupedBackground))
            .edgesIgnoringSafeArea(.bottom)
            .onAppear {
-               self.productStore.loadProducDetail(for: productId)
+               self.productStore.getDetailProduct(with: productId)
            }
        }
   

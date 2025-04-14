@@ -10,47 +10,49 @@ import Shimmer
 struct FavoriteProductCardView: View {
     var product: Result
      var isLoading = true
+    var onTap: () -> Void
     var body: some View {
+        Button(action: onTap) {
         VStack {
-         
+            
             AsyncImage(url: URL(string: product.pictures?.first?.url ?? "https://http2.mlstatic.com/D_NQ_NP_756769-MLU70604693274_072023-F.jpg")) { phase in
-                        switch phase {
-                        case .failure:
-                            Image(systemName: "photo")
-                                .font(.largeTitle)
-                        case .success(let image):
-                            image
-                                .resizable()
-                        default:
-                            ProgressView()
-                        }
-                    }
+                switch phase {
+                case .failure:
+                    Image(systemName: "photo")
+                        .font(.largeTitle)
+                case .success(let image):
+                    image
+                        .resizable()
+                default:
+                    ProgressView()
+                }
+            }
             .redacted(
                 reason: isLoading ? .placeholder : []
             )
             .shimmering(
                 active: isLoading,
                 bandSize: 2
-               )
+            )
             .frame(height: Constants.height/5)
-                   
-                    .cornerRadius(12)
-         
-             
-
+            
+            .cornerRadius(12)
+            
+            
+            
             VStack(spacing: 2) {
                 Text(product.name ?? "")
-                 
+                
                     .font(.headline)
                     .foregroundColor(.primary)
                     .lineLimit(3)
-               
-                   
-              
+                
+                
+                
             }
-          
+            
         }
-       
+    }
        
 
         .padding()

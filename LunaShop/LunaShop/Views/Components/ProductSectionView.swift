@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ProductSectionView: View {
-    
+    @Environment(Router.self)  var router
     @Environment(ProductStore.self)  var productStore
     var body: some View {
         VStack {
         ForEach(productStore.likeProducts){ product in
             ProductCardView(product: product, onTap: {
-                
+                router.navigateTo(route: .detail(id: product.id ?? ""))
             })
             
             .frame(maxWidth: .infinity)
