@@ -17,14 +17,14 @@ import SwiftUI
 struct HomeScreen: View {
 
     @Environment(ProductStore.self)  var productStore
-    @State var productToSearch = ""
+   
     var body: some View {
         VStack() {
             ZStack {
-                Header()
+               
                 
-                SearchBarView(text: $productToSearch).padding(.top, 160)
-                .shadow(color: Color.black.opacity(0.1) ,radius: 8, x:0, y: 4)
+//                SearchBarView(text: $productToSearch).padding(.top, 160)
+//                .shadow(color: Color.black.opacity(0.1) ,radius: 8, x:0, y: 4)
             }
             ZStack {
                 Color.white
@@ -36,35 +36,31 @@ struct HomeScreen: View {
                
                       
                  
-                        if productStore.isSearching {
+                      
                         
-                            SuggestionView(suggestions: productStore.suggestions)
+                            SuggestionView()
+                         
                             
-                           }else {
-                               TittleSection(tittle: "Tus favoritos")
-                               FavoriteSectionView()
-                            
-                               TittleSection(tittle: "Te podria gustar")
-                               ProductSectionView()
-                           }
+                        if !productStore.isSearching {
+                            TittleSection(tittle: "Tus favoritos")
+                            FavoriteSectionView()
+                         
+                            TittleSection(tittle: "Te podria gustar")
+                            ProductSectionView()
+                        }
+                             
+                           
                         
                         
                       
                     }
                 }
-                .onChange(of: self.productToSearch) {
-                    if productToSearch == "" {
-                        self.productStore.isSearching = false
-                    } else {
-                        productStore.showSuggestion(for: productToSearch)
-                    }
-                    
-                }
+             
 
             }
 
     
-        }.ignoresSafeArea()
+        }
          
            
           

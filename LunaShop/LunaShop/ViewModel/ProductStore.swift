@@ -23,20 +23,16 @@ class ProductStore {
     private let service = ProductService()
     private var debounceTask: Task<Void, Never>?
 
-     func showSuggestion(for query: String) {
-         debounceTask?.cancel()
-         debounceTask = Task {
-             if query != "" {
-             try? await Task.sleep(nanoseconds: 400_000_000)
-
+     func showSuggestion(for query: String )  -> [String] {
         
-             await MainActor.run {
-                 self.isSearching = true
-                 self.saveSearchTerm(query)
-                 self.suggestions = self.filteredHistory(query: query)
-             }
-             }
+             if query == "" {
+                 self.isSearching = false
+                 return []
          }
+         self.isSearching = true
+         self.saveSearchTerm(query)
+         return self.filteredHistory(query: query)
+       
      }
 
      func saveSearchTerm(_ term: String) {
