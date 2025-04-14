@@ -16,7 +16,7 @@ struct ResultSearchScreen: View {
             ForEach(productStore.products){ product in
                 ProductCardView(product: product, onTap: {
                     router.navigateTo(route: .detail(product: product))
-                }
+                }, isLoading: productStore.isLoading
                 )
                 .frame(maxWidth: .infinity)
 
