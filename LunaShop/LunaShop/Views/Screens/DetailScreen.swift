@@ -14,42 +14,47 @@ struct DetailScreen: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 
-                AsyncImage(url: URL(string: product.pictures?.first?.url ?? "https://http2.mlstatic.com/D_NQ_NP_756769-MLU70604693274_072023-F.jpg")) { phase in
-                    switch phase {
-                    case .failure:
-                        Image(systemName: "photo")
-                            .font(.largeTitle)
-                            .foregroundColor(.gray)
-                            .frame(width: Constants.width/3, height: Constants.width/3)
-                    case .success(let image):
+                if let firstImage = product.pictures?.first?.url {
+                    AsyncImage(url: URL(string: firstImage)) { image in
                         image
                             .resizable()
-                            .scaledToFill()
-                            .frame(width: Constants.width/3, height: Constants.width/3)
-                            .clipped()
-                    default:
+                            .scaledToFit()
+                            .frame(maxWidth: .infinity)
+                            .cornerRadius(12)
+                    } placeholder: {
                         ProgressView()
-                            .frame(width: Constants.width/3, height: Constants.width/3)
+                            .frame(height: 200)
                     }
                 }
-                .frame(height: Constants.height/2)
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(16)
-                    .shadow(radius: 5)
+              
                 
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(product.name ?? "")
-                        .font(.title)
-                        .fontWeight(.bold)
+                        .font(.title2)
+                        .fontWeight(.semibold)
                         .foregroundColor(.primary)
                     
-                  
+                    Divider().padding(.vertical, 4)
                     
-                    Text(product.status ?? "")
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Text("Características")
+                        .font(.headline)
+                        .padding(.bottom, 4)
+
+                    ForEach(product.attributes ?? []) { attr in
+                      
+                            HStack {
+                                Text(attr.name ?? "")
+                                    .fontWeight(.medium)
+                                Spacer()
+                                Text(attr.valueName ?? "")
+                                    .foregroundColor(.gray)
+                            }
+                            .padding(.vertical, 4)
+                            Divider()
+                        
+                    }
                 }
                 .padding(.horizontal)
                 

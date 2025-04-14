@@ -21,31 +21,36 @@ class ProductStore {
     var suggestions: [String] = ["Cama para perro", "Zelda breath of the wild", "Bolsa de mano", "Pelota de futbol"]
    var id_product = ""
     private let service = ProductService()
-    
+    private var debounceTask: Task<Void, Never>?
 
+     func showSuggestion(for query: String) {
+         debounceTask?.cancel()
+         debounceTask = Task {
+             if query != "" {
+             try? await Task.sleep(nanoseconds: 400_000_000)
 
-    func showSuggestion(for text: String)
-    {
-        isSearching = true
-        saveSearchTerm(text)
-        suggestions = filteredHistory(query: text)
-    }
-   
-    
-    func saveSearchTerm(_ term: String) {
-        var history = UserDefaults.standard.stringArray(forKey: "searchHistory") ?? suggestions
-        if !history.contains(term) {
-            history.insert(term, at: 0)
-        }
-        UserDefaults.standard.set(history, forKey: "searchHistory")
-    }
+        
+             await MainActor.run {
+                 self.isSearching = true
+                 self.saveSearchTerm(query)
+                 self.suggestions = self.filteredHistory(query: query)
+             }
+             }
+         }
+     }
 
-    
-    func filteredHistory(query: String) -> [String] {
-        let history = UserDefaults.standard.stringArray(forKey: "searchHistory") ?? []
-        return history.filter { $0.lowercased().contains(query.lowercased()) }
-    }
+     func saveSearchTerm(_ term: String) {
+         var history = UserDefaults.standard.stringArray(forKey: "searchHistory") ?? []
+         if !history.contains(term) {
+             history.insert(term, at: 0)
+             UserDefaults.standard.set(history, forKey: "searchHistory")
+         }
+     }
 
+     func filteredHistory(query: String) -> [String] {
+         let history = UserDefaults.standard.stringArray(forKey: "searchHistory") ?? []
+         return history.filter { $0.lowercased().contains(query.lowercased()) }
+     }
 
  
     

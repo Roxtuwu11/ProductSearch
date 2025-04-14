@@ -91,6 +91,7 @@ class APIClient {
                 if (200...299).contains(httpResponse.statusCode) || httpResponse.statusCode == 400 || httpResponse.statusCode == 409 {
                     do {
                         let decoded = try JSONDecoder().decode(D.self, from: data)
+                        print(decoded)
                         success(decoded)
                     } catch {
                         failure(ErrorServices__s.custom(reason: "Decoding error: \(error.localizedDescription)"))
@@ -99,6 +100,7 @@ class APIClient {
                     // Otro status code con posible body de error
                     do {
                         let decoded = try JSONDecoder().decode(D.self, from: data)
+                        print(decoded)
                         success(decoded)
                     } catch {
                         failure(ErrorServices__s.communication)

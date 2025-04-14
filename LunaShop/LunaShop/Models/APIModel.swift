@@ -52,7 +52,7 @@ struct Result: Codable, Identifiable, Equatable, Hashable {
 struct MainFeature: Codable, Hashable {
     let text, type: String?
 }
-struct Attribute: Codable, Hashable{
+struct Attribute: Codable, Hashable, Identifiable{
     let id, name, valueID, valueName: String?
 }
 
