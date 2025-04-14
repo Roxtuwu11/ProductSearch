@@ -4,184 +4,116 @@
 //
 //  Created by Ximena Rotceh Mendoza Gamino on 11/04/25.
 //
-
 import Foundation
 import Alamofire
 
 public enum ErrorServices__s: Error {
-    case NullResponseError
-    case NoDataError
-    case ErrorUnknown
-    case ErrorForReason(reason:String)
-    case ErrorGetDeviceID
-    case InvalidateSession
-    case ErrorTimeOut
-    case ErrorNotConnectedToInternet
-    case ErrorCommunications
-    case ErrorInvalidModule(id: String)
+    case nullResponse
+    case noData
+    case unknown
+    case custom(reason: String)
+    case deviceID
+    case invalidSession
+    case timeout
+    case noInternet
+    case communication
+    case invalidModule(id: String)
 }
-
-//extension ErrorServices__s: LocalizedError {
-//    public var errorDescription: String? {
-//        switch self {
-//        case .NullResponseError:
-//            return SharedSettingsConstants.LocalizableString.ErrorNullResponse
-//        case .NoDataError:
-//            return SharedSettingsConstants.LocalizableString.ErrorEmptyData
-//        case .ErrorUnknown:
-//            return SharedSettingsConstants.LocalizableString.ErrorUnknown
-//        case .ErrorForReason(let reason):
-//            return reason
-//        case .ErrorGetDeviceID:
-//            return SharedSettingsConstants.LocalizableString.ErrorGetDeviceID
-//        case .InvalidateSession:
-//            return SharedSettingsConstants.LocalizableString.InvalidateSession
-//        case .ErrorTimeOut:
-//            return SharedSettingsConstants.LocalizableString.ErrorTimeOut
-//        case .ErrorNotConnectedToInternet:
-//            return SharedSettingsConstants.LocalizableString.ErrorNotConnectedToInternet
-//        case .ErrorCommunications:
-//            return SharedSettingsConstants.LocalizableString.ErrorCommunications
-//        case .ErrorInvalidModule(let id):
-//            return SharedSettingsConstants.LocalizableString.ErrorInvalidModule + id
-//        }
-//    }
-//}
-
-
 
 class APIClient {
     static let shared = APIClient()
     var sessionManager: Session
-    public init() {
-        
-      
-        let configuration = APIClient.getAlamofireConfigure()
-        
-        self.sessionManager = Alamofire.Session(configuration: configuration)
-    
-    }
-    private static func getAlamofireConfigure() -> URLSessionConfiguration{
+
+    private init() {
         let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = [AnyHashable : Any]()
-        configuration.httpAdditionalHeaders!["Content-Type"] = "application/json"
-        
-    
-        
-        return configuration
+        configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
+        self.sessionManager = Session(configuration: configuration)
     }
-    public func getRequest<T,D>(url: URL,
-                                    request: T?,
-                                    responseType: D.Type,
-                                    onSuccess success:@escaping ((_ result:D?)-> Void),
-                                onFailure failure:@escaping ((_ error:Error)-> Void)) where D: Decodable, T: Encodable {
-            let queue = DispatchQueue(label: "ProductServices",
-                                      qos: .background,
-                                      attributes: [.concurrent])
-        queue.async {
-            
-            
-            var urlToSend = url.absoluteString
-            var requestUrl = ""
-            
-            if let req = request
-            {
-                let params = req.dictionary
-                //    fecha=01/01/2023&pais=MEXICO
-                
-                params!.forEach{ info in
-                    requestUrl = requestUrl + "\(info.key)" + "=" + "\(info.value)&"
-                    
-                }
-                requestUrl.removeLast()
-                
+
+    public func getRequest<T: Encodable, D: Decodable>(
+        url: URL,
+        request: T?,
+        responseType: D.Type,
+        onSuccess success: @escaping (D?) -> Void,
+        onFailure failure: @escaping (Error) -> Void
+    ) {
+        DispatchQueue.global(qos: .background).async {
+            var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+
+            if let req = request,
+               let params = req.dictionary,
+               !params.isEmpty {
+                urlComponents?.queryItems = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+            } else {
+                urlComponents = URLComponents(string: url.absoluteString )
             }
-            urlToSend = urlToSend + requestUrl
-            var urlRequest = URLRequest(url: URL(string: urlToSend)!)
+
+
+            guard let finalURL = urlComponents?.url else {
+                failure(ErrorServices__s.custom(reason: "URL inválida"))
+                return
+            }
+
+            var urlRequest = URLRequest(url: finalURL)
             urlRequest.httpMethod = HTTPMethod.get.rawValue
             urlRequest.setValue("APP_USR-3980890892821190-041316-6a135b7bcd33f714823d5ef6c37ac6b5-290788001", forHTTPHeaderField: "Authorization")
-            
-            
-        
-                self.sessionManager.request(urlRequest).response { (Response) in
-                 
-                    guard let response = Response.response else{
-                        if let error = Response.error{
-                            let errorDomain = error as NSError
-                            guard errorDomain.code != -999 else{
-                                ///   Analytics.logEvent(Events.ManInTheMiddleDetected, parameters: nil)
-                                exit(0)
-                            }
-                            guard errorDomain.code == CFNetworkErrors.cfurlErrorTimedOut.rawValue else{
-                                failure(ErrorServices__s.ErrorTimeOut)
-                                return
-                            }
-                            guard errorDomain.code == CFNetworkErrors.cfurlErrorNotConnectedToInternet.rawValue else{
-                                failure(ErrorServices__s.ErrorNotConnectedToInternet)
-                                return
-                            }
-                            failure(ErrorServices__s.ErrorCommunications)
-                        }else{
-                            failure(ErrorServices__s.NullResponseError)
-                        }
-                        return
+
+            self.sessionManager.request(urlRequest).response { response in
+                if let res = response.response {
+                    print("respuesta: \(res) ")
+                }
+                if let error = response.error as NSError? {
+                    switch error.code {
+                    case NSURLErrorTimedOut:
+                        failure(ErrorServices__s.timeout)
+                    case NSURLErrorNotConnectedToInternet:
+                        failure(ErrorServices__s.noInternet)
+                    case NSURLErrorCancelled:
+                        // Posible MITM o cierre manual
+                        exit(0)
+                    default:
+                        failure(ErrorServices__s.communication)
                     }
-                    if !( 200...299 ~= response.statusCode || response.statusCode == 400 || response.statusCode == 409) {
-                        if let error = Response.error {
-                            failure(error)
-                        } else if let dataError = Response.data {
-                            let decoder = JSONDecoder()
-                            do{
-                                let errorEntity = try decoder.decode(responseType,
-                                                                     from: dataError)
-                          
-                            
-                             
-                             
-                               
-                            } catch {
-                                failure(ErrorServices__s.ErrorCommunications)
-                            }
-                            return
-                        }
-                    }
-                    let decoder = JSONDecoder()
-                    do{
-                        var dataToDecode:Data?
-                        guard let dataResponse = Response.data else {
-                            failure(ErrorServices__s.NoDataError)
-                            return
-                        }
-                 
-                    
-                        dataToDecode = dataResponse
-                     
-                            
-                        guard let NormalJsonData = dataToDecode else{
-                            failure(ErrorServices__s.ErrorForReason(reason:  "Error al decodificar"))
-                            return
-                        }
-                        
-                        let genericResponse = try decoder.decode(responseType,
-                                                                 from: NormalJsonData)
+                    return
+                }
+
+                guard let httpResponse = response.response else {
+                    failure(ErrorServices__s.nullResponse)
+                    return
+                }
+
+                guard let data = response.data else {
+                    failure(ErrorServices__s.noData)
+                    return
+                }
+
                
-                        success(genericResponse)
-                  
+                if (200...299).contains(httpResponse.statusCode) || httpResponse.statusCode == 400 || httpResponse.statusCode == 409 {
+                    do {
+                        let decoded = try JSONDecoder().decode(D.self, from: data)
+                        print(decoded)
+                        success(decoded)
+                    } catch {
+                        failure(ErrorServices__s.custom(reason: "Decoding error: \(error.localizedDescription)"))
                     }
-                    catch {
-                        let err = error as NSError
-                        failure(err)
+                } else {
+                    // Otro status code con posible body de error
+                    do {
+                        let decoded = try JSONDecoder().decode(D.self, from: data)
+                        print(decoded)
+                        success(decoded)
+                    } catch {
+                        failure(ErrorServices__s.communication)
                     }
                 }
+            }
+        }
     }
-   
-
 }
 
-}
 extension Encodable {
     var dictionary: [String: Any]? {
         guard let data = try? JSONEncoder().encode(self) else { return nil }
-        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)) as? [String: Any]
     }
 }

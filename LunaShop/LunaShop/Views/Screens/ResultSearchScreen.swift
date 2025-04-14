@@ -15,7 +15,7 @@ struct ResultSearchScreen: View {
         ScrollView {
             ForEach(productStore.products){ product in
                 ProductCardView(product: product, onTap: {
-//                    router.navigateTo(route: .detail(id: product.attributes.))
+                    router.navigateTo(route: .detail(product: product))
                 }
                 )
                 .frame(maxWidth: .infinity)

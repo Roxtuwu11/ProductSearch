@@ -20,6 +20,19 @@ struct ProductService {
                 failure(error)
               })
       }
+    
+    func fetchDetailProduct(request: String? ,onSuccess success:@escaping((_ result: Detail?)-> Void),
+            onFailure failure:@escaping((_ error:Error?)->Void)){
+        guard let req = request else { return }
+        let url = URL(string: URLConstants.urlDetailProduct + req)
+        APIClient
+            .shared
+            .getRequest(url: url!, request: req, responseType: Detail.self, onSuccess:  { (result) in
+              success(result)
+            }, onFailure: {(error) in
+                failure(error)
+              })
+      }
 }
 extension Encodable {
     func toQueryItems() throws -> [URLQueryItem] {
