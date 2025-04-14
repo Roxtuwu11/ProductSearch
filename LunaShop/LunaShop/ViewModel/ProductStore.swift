@@ -51,7 +51,7 @@ class ProductStore {
     
     func loadProducts(for product: String?)  {
         isLoading = true
-        let request =  RequestProduct(site_id: "MLA", status: "active", product_identifier: "", q: product, limit: 10)
+        let request =  RequestProduct(site_id: "MLM", status: "active", product_identifier: "", q: product, limit: 10)
        
      
      
@@ -71,7 +71,7 @@ class ProductStore {
     
     func loadFavoriteProducts()  {
         isLoading = true
-        let request =  RequestProduct(site_id: "MLA", status: "active", product_identifier: "", q: "Videojuegos", limit: 10)
+        let request =  RequestProduct(site_id: "MLM", status: "active", product_identifier: "", q: "Videojuegos", limit: 10)
        
      
      
@@ -90,7 +90,7 @@ class ProductStore {
     
     func loadLikeProducts()  {
         isLoading = true
-        let request =  RequestProduct(site_id: "MLA", status: "active", product_identifier: "", q: "Labial", limit: 10)
+        let request =  RequestProduct(site_id: "MLM", status: "active", product_identifier: "", q: "Labial", limit: 10)
        
      
      

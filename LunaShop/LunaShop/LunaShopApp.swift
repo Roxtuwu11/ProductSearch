@@ -18,7 +18,7 @@ struct LunaShopApp: App {
                     .navigationDestination(for: Route.self) { route in
                         switch route {
                         case .detail(let detail):
-                            DetailScreen()
+                            DetailScreen(product: detail)
                   
                             
                         case .resultSearch(product: let product):

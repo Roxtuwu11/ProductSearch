@@ -28,7 +28,7 @@ class Router {
 }
 
 enum Route: Hashable {
-    case detail(id: String)
+    case detail(product: Result)
     case resultSearch(product: String)
     
 }

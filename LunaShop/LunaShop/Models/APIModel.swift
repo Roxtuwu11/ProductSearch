@@ -36,10 +36,8 @@ struct Paging: Codable {
 }
 
 
-struct Result: Codable, Identifiable {
- 
-  
-    
+struct Result: Codable, Identifiable, Equatable, Hashable {
+   
     let id, status, domain_id: String?
     let settings: Settings?
     let name: String?
@@ -51,39 +49,43 @@ struct Result: Codable, Identifiable {
 }
 
 
-struct MainFeature: Codable {
+struct MainFeature: Codable, Hashable {
     let text, type: String?
 }
-struct Attribute: Codable {
+struct Attribute: Codable, Hashable{
     let id, name, valueID, valueName: String?
 }
 
 
-struct Picture: Codable{
+struct Picture: Codable, Hashable{
     let id: String?
     let url: String?
 }
 
 
-struct Settings: Codable {
+struct Settings: Codable, Hashable {
     let listingStrategy: String?
 }
 
 
-struct Detail: Codable {
+struct Detail: Codable, Hashable {
     let id, status, name, family_name: String?
     let pickers: [Picker]?
     let pictures: [PictureDetail]?
+    let short_description: Description?
 }
 
-struct Picker: Codable {
+struct Description: Codable, Hashable {
+    let type, content: String?
+}
+struct Picker: Codable, Hashable {
     let picker_id, picker_name: String?
     let products: [Product]
 }
-struct Product: Codable {
+struct Product: Codable, Hashable {
    
     let product_id, picker_label, picture_id : String?
 }
-struct PictureDetail: Codable {
+struct PictureDetail: Codable, Hashable {
     let id, url: String?
 }

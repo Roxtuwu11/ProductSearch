@@ -15,7 +15,7 @@ struct FavoriteSectionView: View {
             HStack {
                 ForEach(productStore.favoriteProducts){ product in
                     FavoriteProductCardView(product: product, isLoading: productStore.isLoading, onTap: {
-                        router.navigateTo(route: .detail(id: product.id ?? ""))
+                        router.navigateTo(route: .detail(product: product))
                     })
                         .frame(width: Constants.width/2, height: Constants.height/4)
                 }

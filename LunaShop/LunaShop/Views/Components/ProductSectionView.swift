@@ -14,7 +14,7 @@ struct ProductSectionView: View {
         VStack {
         ForEach(productStore.likeProducts){ product in
             ProductCardView(product: product, onTap: {
-                router.navigateTo(route: .detail(id: product.id ?? ""))
+                router.navigateTo(route: .detail(product: product))
             })
             
             .frame(maxWidth: .infinity)

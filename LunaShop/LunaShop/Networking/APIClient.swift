@@ -44,7 +44,10 @@ class APIClient {
                let params = req.dictionary,
                !params.isEmpty {
                 urlComponents?.queryItems = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+            } else {
+                urlComponents = URLComponents(string: url.absoluteString )
             }
+
 
             guard let finalURL = urlComponents?.url else {
                 failure(ErrorServices__s.custom(reason: "URL inválida"))
@@ -56,6 +59,9 @@ class APIClient {
             urlRequest.setValue("APP_USR-3980890892821190-041316-6a135b7bcd33f714823d5ef6c37ac6b5-290788001", forHTTPHeaderField: "Authorization")
 
             self.sessionManager.request(urlRequest).response { response in
+                if let res = response.response {
+                    print("respuesta: \(res) ")
+                }
                 if let error = response.error as NSError? {
                     switch error.code {
                     case NSURLErrorTimedOut:
@@ -81,7 +87,7 @@ class APIClient {
                     return
                 }
 
-                // Status válido
+               
                 if (200...299).contains(httpResponse.statusCode) || httpResponse.statusCode == 400 || httpResponse.statusCode == 409 {
                     do {
                         let decoded = try JSONDecoder().decode(D.self, from: data)
