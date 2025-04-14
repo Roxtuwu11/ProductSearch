@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUICore
 import UIKit
-
+import Shimmer
 
 struct Constants {
     static let width = UIScreen.main.bounds.width
@@ -22,6 +22,9 @@ extension Color {
     static let lunaPinkColor = Color("lunaPink")
 }
 
+struct URLConstants {
+    static let urlProductFinder = "https://api.mercadolibre.com/products/search?"
+}
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
@@ -33,5 +36,25 @@ struct RoundedCorner: Shape {
             cornerRadii: CGSize(width: radius, height: radius)
         )
         return Path(path.cgPath)
+    }
+}
+
+struct shimmerViewModifier: ViewModifier {
+    let isLoading: Bool
+    func body(content: Content) -> some View {
+        content
+            .redacted(
+                reason: isLoading ? .placeholder : []
+            )
+            .shimmering(
+                active: isLoading,
+                bandSize: 2
+               )
+    }
+}
+extension View {
+    func elementWithShimmer(isLoading: Bool) -> some View
+    {
+        self.modifier(shimmerViewModifier(isLoading: isLoading))
     }
 }

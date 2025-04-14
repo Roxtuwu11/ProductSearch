@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct FavoriteSectionView: View {
-    var products: [Product]
+    @Environment(ProductStore.self)  var productStore
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false){
             HStack {
-                ForEach(products){ product in
-                    FavoriteProductCardView(product: product)
+                ForEach(productStore.favoriteProducts){ product in
+                    FavoriteProductCardView(product: product, isLoading: productStore.isLoading)
+                        .frame(width: Constants.width/2, height: Constants.height/4)
                 }
             }
             .padding(.trailing)
         }
-      
+        .onAppear
+        {
+            self.productStore.loadFavoriteProducts()
+        }
     }
 }
 

@@ -6,29 +6,53 @@
 //
 
 import SwiftUI
-
+import Shimmer
 struct FavoriteProductCardView: View {
-    var product: Product
-    
+    var product: Result
+     var isLoading = true
     var body: some View {
         VStack {
-            Image(product.imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 100)
-                .cornerRadius(12)
+         
+            AsyncImage(url: URL(string: product.pictures?.first?.url ?? "https://http2.mlstatic.com/D_NQ_NP_756769-MLU70604693274_072023-F.jpg")) { phase in
+                        switch phase {
+                        case .failure:
+                            Image(systemName: "photo")
+                                .font(.largeTitle)
+                        case .success(let image):
+                            image
+                                .resizable()
+                        default:
+                            ProgressView()
+                        }
+                    }
+            .redacted(
+                reason: isLoading ? .placeholder : []
+            )
+            .shimmering(
+                active: isLoading,
+                bandSize: 2
+               )
+            .frame(height: Constants.height/5)
+                   
+                    .cornerRadius(12)
+         
+             
 
             VStack(spacing: 2) {
-                Text(product.name)
+                Text(product.name ?? "")
+                 
                     .font(.headline)
-                    .multilineTextAlignment(.center)
                     .foregroundColor(.primary)
-
-                Text("$\(product.price)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .lineLimit(3)
+               
+                   
+              
             }
+          
         }
+       
+       
+
         .padding()
         .background(Color.white)
         .cornerRadius(20)

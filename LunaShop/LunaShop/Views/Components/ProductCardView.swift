@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct ProductCardView: View {
-    var product: Product
+    var product: Result
     var body: some View {
         HStack(spacing: 16) {
-            Image(product.imageName)
-                .resizable()
+            AsyncImage(url: URL(string: product.pictures?.first?.url ?? "https://http2.mlstatic.com/D_NQ_NP_756769-MLU70604693274_072023-F.jpg")) { phase in
+                        switch phase {
+                        case .failure:
+                            Image(systemName: "photo")
+                                .font(.largeTitle)
+                        case .success(let image):
+                            image
+                                .resizable()
+                        default:
+                            ProgressView()
+                        }
+                    }
+                
                 .scaledToFit()
-                .frame(width: 80, height: 80)
+                .frame(width: Constants.width/3)
                 .cornerRadius(10)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(product.name)
+                Text(product.name ?? "")
                     .font(.headline)
                     .bold()
 
-                Text("$\(product.price)")
-                    .font(.subheadline)
+            
 
-                Text(product.description)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .lineLimit(2)
             }
 
             Spacer()
