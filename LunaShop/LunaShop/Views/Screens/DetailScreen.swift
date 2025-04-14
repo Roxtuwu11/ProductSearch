@@ -20,6 +20,7 @@ struct DetailScreen: View {
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: .infinity)
+                            .frame(height: Constants.height/2)
                             .cornerRadius(12)
                     } placeholder: {
                         ProgressView()

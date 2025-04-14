@@ -23,15 +23,19 @@ struct ProductCardView: View {
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFill()
-                            .frame(width: Constants.width/3, height: Constants.width/3)
+                            .scaledToFit()
+                            .frame(width: Constants.width/3, height: Constants.height/4)
                             .clipped()
+                            .cornerRadius(10)
                     default:
                         ProgressView()
                             .frame(width: Constants.width/3, height: Constants.width/3)
                     }
                 }
-                .cornerRadius(10)
+               
+               
+               
+             
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(product.name ?? "")

@@ -20,27 +20,16 @@ struct HomeScreen: View {
    
     var body: some View {
         VStack() {
-            ZStack {
-               
-                
-//                SearchBarView(text: $productToSearch).padding(.top, 160)
-//                .shadow(color: Color.black.opacity(0.1) ,radius: 8, x:0, y: 4)
-            }
+         
             ZStack {
                 Color.white
                     .edgesIgnoringSafeArea(.all)
    
                 VStack(alignment: .leading) {
                     ScrollView {
-                        
-               
-                      
-                 
-                      
-                        
+ 
                             SuggestionView()
                          
-                            
                         if !productStore.isSearching {
                             TittleSection(tittle: "Tus favoritos")
                             FavoriteSectionView()
@@ -48,11 +37,6 @@ struct HomeScreen: View {
                             TittleSection(tittle: "Te podria gustar")
                             ProductSectionView()
                         }
-                             
-                           
-                        
-                        
-                      
                     }
                 }
              
