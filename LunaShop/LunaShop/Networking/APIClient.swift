@@ -56,7 +56,7 @@ class APIClient {
     public init() {
         
       
-        var configuration = APIClient.getAlamofireConfigure()
+        let configuration = APIClient.getAlamofireConfigure()
         
         self.sessionManager = Alamofire.Session(configuration: configuration)
     
@@ -104,9 +104,7 @@ class APIClient {
             
         
                 self.sessionManager.request(urlRequest).response { (Response) in
-                    if let res = Response.response {
-                        print("respuesta: \(res) ")
-                    }
+                 
                     guard let response = Response.response else{
                         if let error = Response.error{
                             let errorDomain = error as NSError
@@ -166,7 +164,7 @@ class APIClient {
                         
                         let genericResponse = try decoder.decode(responseType,
                                                                  from: NormalJsonData)
-                        print(" respues generica: \(genericResponse)")
+               
                         success(genericResponse)
                   
                     }

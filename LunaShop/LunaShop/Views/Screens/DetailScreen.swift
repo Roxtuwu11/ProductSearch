@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DetailScreen: View {
+    @Environment(ProductStore.self)  var productStore
+    var productId: String = ""
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -20,15 +22,12 @@ struct DetailScreen: View {
                 
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Sillón Acolchado Rosa")
+                    Text(productStore.product?.name ?? "")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                     
-                    Text("$5,000 MXN")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.lunaPinkColor)
+                  
                     
                     Text("Este elegante sillón rosa acolchonado ofrece la combinación perfecta de comodidad y estilo. Ideal para salas modernas o habitaciones con un toque chic.")
                         .font(.body)
@@ -57,6 +56,9 @@ struct DetailScreen: View {
            }
            .background(Color(.systemGroupedBackground))
            .edgesIgnoringSafeArea(.bottom)
+           .onAppear {
+               self.productStore.loadProducDetail(for: productId)
+           }
        }
   
     

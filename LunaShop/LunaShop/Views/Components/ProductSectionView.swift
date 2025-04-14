@@ -13,7 +13,9 @@ struct ProductSectionView: View {
     var body: some View {
         VStack {
         ForEach(productStore.likeProducts){ product in
-            ProductCardView(product: product)
+            ProductCardView(product: product, onTap: {
+                
+            })
             
             .frame(maxWidth: .infinity)
 

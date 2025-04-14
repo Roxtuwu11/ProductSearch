@@ -18,36 +18,6 @@
             endingLineNumber = "107"
             landmarkName = "getRequest(url:request:responseType:onSuccess:onFailure:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2C46181C-439B-4403-BBAE-871036D010DA - cd04b47f2a372abc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Sendable (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in closure #1 @Sendable () -&gt; () in LunaShop.APIClient.getRequest&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Encodable, &#x3c4;_0_1: Swift.Decodable&gt;(url: Foundation.URL, request: Swift.Optional&lt;&#x3c4;_0_0&gt;, responseType: &#x3c4;_0_1.Type, onSuccess: (Swift.Optional&lt;&#x3c4;_0_1&gt;) -&gt; (), onFailure: (Swift.Error) -&gt; ()) -&gt; ()"
-                  moduleName = "LunaShop.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ximenarotchedmendozagamino/ProductSearch/LunaShop/LunaShop/Networking/APIClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107">
-               </Location>
-               <Location
-                  uuid = "2C46181C-439B-4403-BBAE-871036D010DA - cd04b47f2a372abc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 @Sendable (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in closure #1 @Sendable () -&gt; () in LunaShop.APIClient.getRequest&lt;&#x3c4;_0_0, &#x3c4;_0_1 where &#x3c4;_0_0: Swift.Encodable, &#x3c4;_0_1: Swift.Decodable&gt;(url: Foundation.URL, request: Swift.Optional&lt;&#x3c4;_0_0&gt;, responseType: &#x3c4;_0_1.Type, onSuccess: (Swift.Optional&lt;&#x3c4;_0_1&gt;) -&gt; (), onFailure: (Swift.Error) -&gt; ()) -&gt; ()"
-                  moduleName = "LunaShop.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ximenarotchedmendozagamino/ProductSearch/LunaShop/LunaShop/Networking/APIClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "107"
-                  endingLineNumber = "107">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -60,26 +30,10 @@
             filePath = "LunaShop/ViewModel/ProductStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "loadLikeProducts()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AE5CF1D2-6540-47F9-A342-9D722209F3BB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LunaShop/Views/Screens/HomeScreen.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "body"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
