@@ -37,6 +37,7 @@ struct Paging: Codable {
 
 
 struct Result: Codable, Identifiable {
+ 
   
     
     let id, status, domain_id: String?
