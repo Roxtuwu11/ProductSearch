@@ -48,22 +48,14 @@ struct HomeScreen: View {
                                .listStyle(PlainListStyle())
                                .frame(height: 200)
                             
-                           }
-
-                           if productStore.isSearching {
-                               ProgressView("Buscando productos...")
-                           } else if !productStore.products.isEmpty {
-                               List(productStore.products) { product in
-                                  
-                               }
-                           } else {
+                           }else {
                                TittleSection(tittle: "Tus favoritos")
                                FavoriteSectionView()
                             
                                TittleSection(tittle: "Te podria gustar")
                                ProductSectionView()
                            }
-                          
+                        
                         
                       
                     }
