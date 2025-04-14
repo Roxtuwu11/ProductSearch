@@ -9,12 +9,15 @@ import SwiftUI
 
 struct ResultSearchScreen: View {
     @Environment(ProductStore.self)  var productStore
+    @Environment(Router.self)  var router
     var search: String = ""
     var body: some View {
         ScrollView {
             ForEach(productStore.products){ product in
-                ProductCardView(product: product)
-                
+                ProductCardView(product: product, onTap: {
+//                    router.navigateTo(route: .detail(id: product.attributes.))
+                }
+                )
                 .frame(maxWidth: .infinity)
 
                    

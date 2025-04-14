@@ -12,6 +12,7 @@ import Observation
 class ProductStore {
     var isLoading = true
     var products: [Result] = []
+    var product: Result?
     var favoriteProducts: [Result] = []
     var likeProducts: [Result] = []
     var errorMessage: String?
@@ -57,6 +58,24 @@ class ProductStore {
         service.fetchProducts(request: request, onSuccess: { result in
             guard let product = result else { return  }
             self.products = product.results
+            self.isLoading = false
+            }, onFailure: { error in
+                print("Hubo un error en la peticion")
+                self.isLoading = false
+            })
+        
+        
+      
+    }
+    func loadProducDetail(for product: String?)  {
+        isLoading = true
+        let request =  RequestProduct(site_id: "MLA", status: "active", product_identifier: product, q: "", limit: 10)
+       
+     
+     
+        service.fetchProducts(request: request, onSuccess: { result in
+            guard let product = result else { return  }
+            self.product = product.results.first
             self.isLoading = false
             }, onFailure: { error in
                 print("Hubo un error en la peticion")

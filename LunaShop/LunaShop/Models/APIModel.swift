@@ -68,3 +68,22 @@ struct Picture: Codable{
 struct Settings: Codable {
     let listingStrategy: String?
 }
+
+
+struct Detail: Codable {
+    let id, status, name, family_name: String?
+    let pickers: [Picker]?
+    let pictures: [PictureDetail]
+}
+
+struct Picker: Codable {
+    let picker_id, picker_name: String?
+    let products: [Product]
+}
+struct Product: Codable {
+   
+    let product_id, picker_label, picture_id : String?
+}
+struct PictureDetail: Codable {
+    let id, url: String?
+}
