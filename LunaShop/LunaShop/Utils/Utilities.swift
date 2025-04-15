@@ -57,3 +57,7 @@ extension View {
         self.modifier(shimmerViewModifier(isLoading: isLoading))
     }
 }
+extension Notification.Name {
+    static let didPopToRoot = Notification.Name("didPopToRoot")
+}
+

@@ -16,10 +16,13 @@ class ProductStore {
     var favoriteProducts: [Result] = []
     var likeProducts: [Result] = []
     var errorMessage: String?
-    var textToSearch: String = ""
+    var productToSearch = ""
     var isSearching = false
+    var isSearchingError = false
     var suggestions: [String] = ["Cama para perro", "Zelda breath of the wild", "Bolsa de mano", "Pelota de futbol"]
    var id_product = ""
+     var showErrorAlert = false
+     var messageError = ""
     private let service = ProductService()
     private var debounceTask: Task<Void, Never>?
 
@@ -61,8 +64,7 @@ class ProductStore {
             self.products = product.results
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -81,8 +83,7 @@ class ProductStore {
             self.favoriteProducts = product.results
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -100,8 +101,7 @@ class ProductStore {
             self.likeProducts = product.results
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -116,10 +116,17 @@ class ProductStore {
             self.product = product
             self.isLoading = false
         } onFailure: { error in
-            print("Hubo un error en la peticion")
-            self.isLoading = false
+            self.presentError(error: error)
+            
         }
 
+    }
+    func presentError(error: Error?) {
+        self.isLoading = false
+        guard let err = error else { return  }
+        self.showErrorAlert = true
+        self.messageError =  err.localizedDescription
+        
     }
     
     

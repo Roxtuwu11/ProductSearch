@@ -12,11 +12,15 @@ struct SuggestionView: View {
     @Environment(ProductStore.self)  var productStore
     @Environment(Router.self)  var router
     var body: some View {
+        VStack {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(suggestions, id: \.self) { suggestion in
                     Button {
-                        router.navigateTo(route: .resultSearch(product: suggestion))
+                        productToSearch = ""
+                         productStore.isSearching = false
+                     
+                         router.navigateTo(route: .resultSearch(product: suggestion))
                     } label: {
                         Text(suggestion)
                             .padding(.vertical, 8)
@@ -37,16 +41,15 @@ struct SuggestionView: View {
                     .frame(width: 100, height: 60)
             }
         }
-
-
-
+        }
+  
     }
+
     var suggestions: [String] {
-        
-             return productStore.showSuggestion(for: productToSearch)
-         
-     }
+        productStore.showSuggestion(for: productToSearch)
+    }
 }
+
 
 #Preview {
     SuggestionView()
