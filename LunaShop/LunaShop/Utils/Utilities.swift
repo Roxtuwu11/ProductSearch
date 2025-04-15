@@ -10,9 +10,11 @@ import SwiftUICore
 import UIKit
 import Shimmer
 
-struct Constants {
+public struct Constants {
     static let width = UIScreen.main.bounds.width
     static let height = UIScreen.main.bounds.height
+
+
 
   
 }
@@ -57,3 +59,7 @@ extension View {
         self.modifier(shimmerViewModifier(isLoading: isLoading))
     }
 }
+extension Notification.Name {
+    static let didPopToRoot = Notification.Name("didPopToRoot")
+}
+

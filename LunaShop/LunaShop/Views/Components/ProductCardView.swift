@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Shimmer
 struct ProductCardView: View {
     var product: Result
     var onTap: () -> Void
-
+    var isLoading: Bool
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 16) {
@@ -23,15 +24,19 @@ struct ProductCardView: View {
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFill()
-                            .frame(width: Constants.width/3, height: Constants.width/3)
+                            .scaledToFit()
+                            .frame(width: Constants.width/3, height: Constants.height/4)
                             .clipped()
+                            .cornerRadius(10)
                     default:
                         ProgressView()
                             .frame(width: Constants.width/3, height: Constants.width/3)
                     }
                 }
-                .cornerRadius(10)
+               
+               
+               
+             
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(product.name ?? "")
@@ -47,7 +52,9 @@ struct ProductCardView: View {
             .cornerRadius(16)
             .shadow(color: .gray.opacity(0.1), radius: 4, x: 0, y: 1)
         }
-        .buttonStyle(PlainButtonStyle()) // Elimina el highlight por defecto
+        .redacted(reason: isLoading ? .placeholder : [])
+             .shimmering(active: isLoading)
+        .buttonStyle(PlainButtonStyle())
     }
 }
 

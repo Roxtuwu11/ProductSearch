@@ -24,68 +24,73 @@ struct RequestProduct: Codable {
         self.limit = limit
     }
 }
-struct ResponseProduct: Codable {
-    let keywords: String
-    let paging: Paging
-    let results: [Result]
+public struct ResponseProduct: Codable {
+    public let keywords: String?
+    public let paging: Paging?
+    public let results: [Result]?
+    public init(keywords: String?, paging: Paging?, results: [Result]?) {
+        self.keywords = keywords
+        self.paging = paging
+        self.results = results
+    }
 }
 
 
-struct Paging: Codable {
-    let total, limit, offset: Int
+public struct Paging: Codable {
+    public let total, limit, offset: Int
 }
 
 
-struct Result: Codable, Identifiable, Equatable, Hashable {
+public struct Result: Codable, Identifiable, Equatable, Hashable {
    
-    let id, status, domain_id: String?
-    let settings: Settings?
-    let name: String?
-    let mainFeatures: [MainFeature]?
-    let attributes: [Attribute]?
-    let pictures: [Picture]?
-    let parentID: String?
-    let childrenIDS: [String]?
+    public let id, status, domain_id: String?
+    public let settings: Settings?
+    public let name: String?
+    public let mainFeatures: [MainFeature]?
+    public let attributes: [Attribute]?
+    public let pictures: [Picture]?
+    public let parentID: String?
+    public let childrenIDS: [String]?
 }
 
 
-struct MainFeature: Codable, Hashable {
-    let text, type: String?
+public struct MainFeature: Codable, Hashable {
+    public let text, type: String?
 }
-struct Attribute: Codable, Hashable, Identifiable{
-    let id, name, valueID, valueName: String?
-}
-
-
-struct Picture: Codable, Hashable{
-    let id: String?
-    let url: String?
+public struct Attribute: Codable, Hashable, Identifiable{
+     public let id, name, valueID, valueName: String?
 }
 
 
-struct Settings: Codable, Hashable {
-    let listingStrategy: String?
+public struct Picture: Codable, Hashable{
+    public let id: String?
+    public let url: String?
 }
 
 
-struct Detail: Codable, Hashable {
+public struct Settings: Codable, Hashable {
+    public let listingStrategy: String?
+}
+
+
+public struct Detail: Codable, Hashable {
     let id, status, name, family_name: String?
     let pickers: [Picker]?
     let pictures: [PictureDetail]?
     let short_description: Description?
 }
 
-struct Description: Codable, Hashable {
+public struct Description: Codable, Hashable {
     let type, content: String?
 }
-struct Picker: Codable, Hashable {
+public struct Picker: Codable, Hashable {
     let picker_id, picker_name: String?
     let products: [Product]
 }
-struct Product: Codable, Hashable {
+public struct Product: Codable, Hashable {
    
     let product_id, picker_label, picture_id : String?
 }
-struct PictureDetail: Codable, Hashable {
+public struct PictureDetail: Codable, Hashable {
     let id, url: String?
 }

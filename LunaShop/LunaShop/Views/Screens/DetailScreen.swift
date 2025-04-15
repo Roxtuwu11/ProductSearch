@@ -8,53 +8,23 @@
 import SwiftUI
 
 struct DetailScreen: View {
-
+    @Environment(ProductStore.self)  var productStore
+    @Environment(Router.self)  var router
     var product: Result
     var body: some View {
+        @Bindable var productStore = productStore
         ScrollView {
+        
             VStack(alignment: .leading, spacing: 16) {
                 
                 if let firstImage = product.pictures?.first?.url {
-                    AsyncImage(url: URL(string: firstImage)) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
-                            .cornerRadius(12)
-                    } placeholder: {
-                        ProgressView()
-                            .frame(height: 200)
-                    }
+                    ProductImageView(firstImage: firstImage)
                 }
               
                 
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(product.name ?? "")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    
-                    Divider().padding(.vertical, 4)
-                    
-                    
-                    Text("Características")
-                        .font(.headline)
-                        .padding(.bottom, 4)
-
-                    ForEach(product.attributes ?? []) { attr in
-                      
-                            HStack {
-                                Text(attr.name ?? "")
-                                    .fontWeight(.medium)
-                                Spacer()
-                                Text(attr.valueName ?? "")
-                                    .foregroundColor(.gray)
-                            }
-                            .padding(.vertical, 4)
-                            Divider()
-                        
-                    }
+                    DetailProductView(product: product)
                 }
                 .padding(.horizontal)
                 
@@ -62,10 +32,18 @@ struct DetailScreen: View {
                  
                }
                .padding(.vertical)
+            
            }
            .background(Color(.systemGroupedBackground))
            .edgesIgnoringSafeArea(.bottom)
-       
+           .alert("Error", isPresented: $productStore.showErrorAlert) {
+               Button("Reintentar", action: {
+                   productStore.showErrorAlert = false
+                   router.popToRoot()
+               })
+           } message: {
+               Text(productStore.messageError)
+           }
        }
   
     

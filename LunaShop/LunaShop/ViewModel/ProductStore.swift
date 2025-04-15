@@ -16,27 +16,26 @@ class ProductStore {
     var favoriteProducts: [Result] = []
     var likeProducts: [Result] = []
     var errorMessage: String?
-    var textToSearch: String = ""
+    var productToSearch = ""
     var isSearching = false
+    var isSearchingError = false
     var suggestions: [String] = ["Cama para perro", "Zelda breath of the wild", "Bolsa de mano", "Pelota de futbol"]
    var id_product = ""
+     var showErrorAlert = false
+     var messageError = ""
     private let service = ProductService()
-    private var debounceTask: Task<Void, Never>?
+   
 
-     func showSuggestion(for query: String) {
-         debounceTask?.cancel()
-         debounceTask = Task {
-             if query != "" {
-             try? await Task.sleep(nanoseconds: 400_000_000)
-
+     func showSuggestion(for query: String )  -> [String] {
         
-             await MainActor.run {
-                 self.isSearching = true
-                 self.saveSearchTerm(query)
-                 self.suggestions = self.filteredHistory(query: query)
-             }
-             }
+             if query == "" {
+                 self.isSearching = false
+                 return []
          }
+         self.isSearching = true
+         self.saveSearchTerm(query)
+         return self.filteredHistory(query: query)
+       
      }
 
      func saveSearchTerm(_ term: String) {
@@ -61,12 +60,13 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.products = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.products = product
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -81,12 +81,13 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.favoriteProducts = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.favoriteProducts = product
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -100,12 +101,13 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.likeProducts = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.likeProducts = product
             self.isLoading = false
             }, onFailure: { error in
-                print("Hubo un error en la peticion")
-                self.isLoading = false
+                self.presentError(error: error)
             })
         
         
@@ -120,10 +122,17 @@ class ProductStore {
             self.product = product
             self.isLoading = false
         } onFailure: { error in
-            print("Hubo un error en la peticion")
-            self.isLoading = false
+            self.presentError(error: error)
+            
         }
 
+    }
+    func presentError(error: Error?) {
+        self.isLoading = false
+        guard let err = error else { return  }
+        self.showErrorAlert = true
+        self.messageError =  err.localizedDescription
+        
     }
     
     

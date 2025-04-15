@@ -9,7 +9,7 @@ import SwiftUI
 import Shimmer
 struct FavoriteProductCardView: View {
     var product: Result
-     var isLoading = true
+    var isLoading: Bool
     var onTap: () -> Void
     var body: some View {
         Button(action: onTap) {
@@ -27,22 +27,17 @@ struct FavoriteProductCardView: View {
                     ProgressView()
                 }
             }
-            .redacted(
-                reason: isLoading ? .placeholder : []
-            )
-            .shimmering(
-                active: isLoading,
-                bandSize: 2
-            )
+           
             .frame(height: Constants.height/5)
-            
+           
             .cornerRadius(12)
             
             
             
             VStack(spacing: 2) {
                 Text(product.name ?? "")
-                
+                    .redacted(reason: isLoading ? .placeholder : [])
+                         .shimmering(active: isLoading)
                     .font(.headline)
                     .foregroundColor(.primary)
                     .lineLimit(3)
@@ -52,6 +47,8 @@ struct FavoriteProductCardView: View {
             }
             
         }
+        .redacted(reason: isLoading ? .placeholder : [])
+             .shimmering(active: isLoading)
     }
        
 

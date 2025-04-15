@@ -6,7 +6,21 @@
 //
 
 import Foundation
-struct ProductService {
+protocol ProductServiceProtocol {
+    func fetchProducts(
+        request: RequestProduct?,
+        onSuccess: @escaping (ResponseProduct?) -> Void,
+        onFailure: @escaping (Error?) -> Void
+    )
+
+    func fetchDetailProduct(
+        request: String?,
+        onSuccess: @escaping (Detail?) -> Void,
+        onFailure: @escaping (Error?) -> Void
+    )
+}
+
+struct ProductService: ProductServiceProtocol {
  
     func fetchProducts(request: RequestProduct? ,onSuccess success:@escaping((_ result: ResponseProduct?)-> Void),
             onFailure failure:@escaping((_ error:Error?)->Void)){
@@ -34,6 +48,38 @@ struct ProductService {
               })
       }
 }
+
+class MockProductService: ProductServiceProtocol {
+    var shouldReturnError: Bool = false
+    var mockProducts: ResponseProduct?
+    var mockDetail: Detail?
+    var error: Error?
+
+    func fetchProducts(
+        request: RequestProduct?,
+        onSuccess: @escaping (ResponseProduct?) -> Void,
+        onFailure: @escaping (Error?) -> Void
+    ) {
+        if shouldReturnError {
+            onFailure(error)
+        } else {
+            onSuccess(mockProducts)
+        }
+    }
+
+    func fetchDetailProduct(
+        request: String?,
+        onSuccess: @escaping (Detail?) -> Void,
+        onFailure: @escaping (Error?) -> Void
+    ) {
+        if shouldReturnError {
+            onFailure(error)
+        } else {
+            onSuccess(mockDetail)
+        }
+    }
+}
+
 extension Encodable {
     func toQueryItems() throws -> [URLQueryItem] {
         let data = try JSONEncoder().encode(self)
