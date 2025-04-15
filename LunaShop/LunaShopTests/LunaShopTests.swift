@@ -9,28 +9,78 @@ import XCTest
 @testable import LunaShop
 
 final class LunaShopTests: XCTestCase {
+    var productStoreTest = ProductStore()
+    var userDefaults: UserDefaults!
+    var mockService = MockProductService()
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        userDefaults = UserDefaults(suiteName: "TestSuite")
+              userDefaults.removePersistentDomain(forName: "TestSuite")
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        userDefaults.removePersistentDomain(forName: "TestSuite")
+            userDefaults = nil
+        
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func test_fetchProducts_success() {
+        let mockService = MockProductService()
+        mockService.shouldReturnError = false
+        mockService.mockProducts = mockResponseProduct
+
+        let expectation = XCTestExpectation(description: "fetchProducts completes")
+
+        mockService.fetchProducts(request: nil, onSuccess: { response in
+            XCTAssertNotNil(response)
+            expectation.fulfill()
+        }, onFailure: { error in
+            XCTFail("Expected success, but got error: \(String(describing: error))")
+        })
+
+        wait(for: [expectation], timeout: 1.0)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testShowSuggestion_WhenQueryIsEmpty_ReturnsEmptyArray() {
+            let result = productStoreTest.showSuggestion(for: "")
+            XCTAssertEqual(result, [], "The result is not empty")
+            XCTAssertFalse(productStoreTest.isSearching, "isSearching is not false")
         }
+ 
+
+        func testShowSuggestion_WhenQueryHasMatches_ReturnsFilteredResults() {
+            userDefaults.set(["Samsung"], forKey: "searchHistory")
+            let result = productStoreTest.showSuggestion(for: "Samsung")
+            XCTAssertEqual(result, ["Samsung"])
+            XCTAssertTrue(productStoreTest.isSearching)
+        }
+
+     
+
+        func testSaveSearchTerm_DoesNotDuplicateTerms() {
+            userDefaults.set(["Philips"], forKey: "searchHistory")
+            productStoreTest.saveSearchTerm("Philips")
+            let history = userDefaults.stringArray(forKey: "searchHistory")
+            XCTAssertEqual(history, ["Philips"])
+        }
+
+    
+
+       func testLoadProductsFailure() {
+           let mockService = MockProductService()
+           mockService.shouldReturnError = true
+
+    
+
+           productStoreTest.loadProducts(for: "TV")
+           
+           XCTAssertFalse(productStoreTest.isLoading)
+           XCTAssertTrue(productStoreTest.products.isEmpty)
+       }
+    func testLoadProducts_WhenGivenSuccessfullResponse_ReturnSuccess(){
+     
+        
+        productStoreTest.loadProducts(for: "Videojuegos")
     }
 
 }

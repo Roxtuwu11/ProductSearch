@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8579A22E2DADFB72003CE183 /* LunaLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8579A22D2DADFB72003CE183 /* LunaLaunchScreen.storyboard */; };
+		857DEB252DAB8C920072D610 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 857DEB242DAB8C920072D610 /* Alamofire */; };
+		8595C4652DAC617700B0F98F /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 8595C4642DAC617700B0F98F /* Shimmer */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		858E3CB72DA34BFF007CDEE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +30,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8579A22D2DADFB72003CE183 /* LunaLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LunaLaunchScreen.storyboard; sourceTree = "<group>"; };
 		858E3CA62DA34BFE007CDEE5 /* LunaShop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunaShop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		858E3CB62DA34BFF007CDEE5 /* LunaShopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunaShopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		858E3CC02DA34BFF007CDEE5 /* LunaShopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LunaShopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		85A673F82DA8BB54003DB406 /* Exceptions for "LunaShop" folder in "LunaShop" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 858E3CA52DA34BFE007CDEE5 /* LunaShop */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		858E3CA82DA34BFE007CDEE5 /* LunaShop */ = {
+		855B32E72DA38E1C00D5D6B1 /* LunaShop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				85A673F82DA8BB54003DB406 /* Exceptions for "LunaShop" folder in "LunaShop" target */,
+			);
 			path = LunaShop;
 			sourceTree = "<group>";
 		};
@@ -52,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8595C4652DAC617700B0F98F /* Shimmer in Frameworks */,
+				857DEB252DAB8C920072D610 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +97,8 @@
 		858E3C9D2DA34BFE007CDEE5 = {
 			isa = PBXGroup;
 			children = (
-				858E3CA82DA34BFE007CDEE5 /* LunaShop */,
+				8579A22D2DADFB72003CE183 /* LunaLaunchScreen.storyboard */,
+				855B32E72DA38E1C00D5D6B1 /* LunaShop */,
 				858E3CB92DA34BFF007CDEE5 /* LunaShopTests */,
 				858E3CC32DA34BFF007CDEE5 /* LunaShopUITests */,
 				858E3CA72DA34BFE007CDEE5 /* Products */,
@@ -108,10 +131,12 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				858E3CA82DA34BFE007CDEE5 /* LunaShop */,
+				855B32E72DA38E1C00D5D6B1 /* LunaShop */,
 			);
 			name = LunaShop;
 			packageProductDependencies = (
+				857DEB242DAB8C920072D610 /* Alamofire */,
+				8595C4642DAC617700B0F98F /* Shimmer */,
 			);
 			productName = LunaShop;
 			productReference = 858E3CA62DA34BFE007CDEE5 /* LunaShop.app */;
@@ -195,6 +220,10 @@
 			);
 			mainGroup = 858E3C9D2DA34BFE007CDEE5;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				857DEB232DAB8C920072D610 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 858E3CA72DA34BFE007CDEE5 /* Products */;
 			projectDirPath = "";
@@ -212,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8579A22E2DADFB72003CE183 /* LunaLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,9 +429,11 @@
 				DEVELOPMENT_TEAM = JAPFS373JP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LunaShop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LunaLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -428,9 +460,11 @@
 				DEVELOPMENT_TEAM = JAPFS373JP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LunaShop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LunaLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -558,6 +592,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		857DEB232DAB8C920072D610 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markiv/SwiftUI-Shimmer";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		857DEB242DAB8C920072D610 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 857DEB232DAB8C920072D610 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		8595C4642DAC617700B0F98F /* Shimmer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8595C4632DAC617700B0F98F /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
+			productName = Shimmer;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 858E3C9E2DA34BFE007CDEE5 /* Project object */;
 }
