@@ -14,8 +14,8 @@
             filePath = "LunaShop/ViewModel/ProductStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "getDetailProduct(with:)"
             landmarkType = "7">
          </BreakpointContent>

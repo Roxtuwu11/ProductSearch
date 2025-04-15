@@ -17,15 +17,20 @@ struct ResultSearchScreen: View {
         VStack {
    
             ScrollView {
-                ForEach(productStore.products){ product in
-                    ProductCardView(product: product, onTap: {
-                        router.navigateTo(route: .detail(product: product))
-                    }, isLoading: productStore.isLoading
-                    )
-                    .frame(maxWidth: .infinity)
+                if productStore.products.count != 0 {
+                    ForEach(productStore.products){ product in
+                        ProductCardView(product: product, onTap: {
+                            router.navigateTo(route: .detail(product: product))
+                        }, isLoading: productStore.isLoading
+                        )
+                        .frame(maxWidth: .infinity)
 
-                       
+                           
+                    }
+                } else {
+                    Text("No se encontraron resultados")
                 }
+            
             }
         
         }

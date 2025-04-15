@@ -24,7 +24,7 @@ class ProductStore {
      var showErrorAlert = false
      var messageError = ""
     private let service = ProductService()
-    private var debounceTask: Task<Void, Never>?
+   
 
      func showSuggestion(for query: String )  -> [String] {
         
@@ -60,8 +60,10 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.products = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.products = product
             self.isLoading = false
             }, onFailure: { error in
                 self.presentError(error: error)
@@ -79,8 +81,10 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.favoriteProducts = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.favoriteProducts = product
             self.isLoading = false
             }, onFailure: { error in
                 self.presentError(error: error)
@@ -97,8 +101,10 @@ class ProductStore {
      
      
         service.fetchProducts(request: request, onSuccess: { result in
-            guard let product = result else { return  }
-            self.likeProducts = product.results
+            guard let product = result?.results else {
+                self.presentError(error: ErrorServices__s.communication)
+                return  }
+            self.likeProducts = product
             self.isLoading = false
             }, onFailure: { error in
                 self.presentError(error: error)
